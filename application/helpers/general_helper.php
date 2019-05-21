@@ -1,7 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-public function __construct() {
-	// $this->load->database();
-}
 if(!function_exists('sanitize')) {
 	function sanitize($string) {
 		// $string =str_replace(';','',$string);
@@ -81,5 +78,11 @@ if(!function_exists('sendEmail')) {
 
 	}
 }
+if(!function_exists('checkLogin')) {
+	function checkLogin() {
+		if(!isset($_SESSION['pss']['login'])) {
+
+		}
+	}
 }
 ?>
