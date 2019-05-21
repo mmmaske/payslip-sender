@@ -31,8 +31,9 @@ if(!function_exists('debug')) {
 	}
 }
 if(!function_exists('sendEmail')) {
-	function sendEmail($to, $subject, $msg) {
-		$this->load->library('email');
+	function sendEmail($to, $subject, $msg, $attachment='') {
+		$ci =& get_instance();
+		$ci->load->library('email');
 		// $config['protocol'] = 'sendmail';
 		// $config['protocol'] = 'smtp';
 
@@ -67,14 +68,16 @@ if(!function_exists('sendEmail')) {
 			'charset'   => 'iso-8859-1'
 		);
 
-		$this->email->initialize($email_config);
-		$this->email->from(EMAIL_SENDER);
-		$this->email->to($to);
-		$this->email->subject($subject);
-		$this->email->message("<html><body>".$msg.$debug_string."</body></html>");
+		$ci->email->initialize($email_config);
+		$ci->email->from(EMAIL_SENDER);
+		$ci->email->to($to);
+		$ci->email->subject($subject);
+		$ci->email->message("<html><body>".$msg.$debug_string."</body></html>");
 
-		// $this->email->attach(WPATH."resumes/".$upload['client_name']);
-		$this->email->send();
+		if(file_exists(WPATH."uploads/".$attachment)) {
+			$this->email->attach(WPATH."uploads/".$attachment);
+		}
+		$ci->email->send();
 
 	}
 }
