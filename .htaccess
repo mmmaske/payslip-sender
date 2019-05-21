@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteCond $1 !^(assets|favicon\.ico|index\.php)
+RewriteRule ^(.*)$ /smti/payslip-sender/index.php?/$1 [L]
+<files *.html>
+ SetOutputFilter DEFLATE
+</files>
