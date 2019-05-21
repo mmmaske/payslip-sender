@@ -77,8 +77,7 @@ if(!function_exists('sendEmail')) {
 		if(file_exists(WPATH."uploads/".$attachment)) {
 			$this->email->attach(WPATH."uploads/".$attachment);
 		}
-		$ci->email->send();
-
+		return $ci->email->send();
 	}
 }
 if(!function_exists('checkLogin')) {
@@ -86,6 +85,14 @@ if(!function_exists('checkLogin')) {
 		if(!isset($_SESSION['pss']['login'])) {
 
 		}
+	}
+}
+if(!function_exists('redirect')) {
+	function redirect($destination) {
+		header("location:".$destination);
+		echo "<script>window.location='".$destination."'</script>";
+		die("<script>window.location='".$destination."'</script>");
+		return true;
 	}
 }
 ?>
