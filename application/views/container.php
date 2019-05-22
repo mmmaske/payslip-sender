@@ -32,6 +32,7 @@ $page['subtitle']	=	isset($page['subtitle']) ? $page['subtitle'] : 'Powered by L
 			</a>
 			<div class="navbar-custom-menu">
 				<ul class="nav navbar-nav">
+<!--
 					<li class="dropdown messages-menu">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fa fa-envelope-o"></i>
@@ -106,6 +107,7 @@ $page['subtitle']	=	isset($page['subtitle']) ? $page['subtitle'] : 'Powered by L
 							</li>
 						</ul>
 					</li>
+-->
 					<li class="dropdown user user-menu">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="https://avatars.dicebear.com/v2/male/mmmaske.svg" class="user-image" alt="User Image">
