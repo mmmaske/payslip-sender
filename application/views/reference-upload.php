@@ -1,6 +1,6 @@
 <div class="box">
 	<form action="<?php echo SITEURL; ?>/upload/reference" method="POST" enctype='multipart/form-data'>
-	<input type='hidden' name='<?php echo $this->security->get_csrf_token_name(); ?>' value='<?php echo $this->security->get_csrf_hash(); ?>' />
+		<input type='hidden' name='<?php echo $this->security->get_csrf_token_name(); ?>' value='<?php echo $this->security->get_csrf_hash(); ?>' />
 		<div class="box-header with-border">
 			<h3 class="box-title">Reference Upload</h3>
 			<div class="box-tools pull-right">

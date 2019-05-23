@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div class="box-body">
-			ayy lmao
+			<?php debug($uploaded); ?>
 		</div>
 		<div class="box-footer">
 			footer
