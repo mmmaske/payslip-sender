@@ -28,23 +28,38 @@ class Upload extends CI_Controller {
 			$data['uploaded']	=	$csv;
 			$data['filedata']	=	$uploaded;
 			$multiInsert		=	[];
+			$latest_email_schedule	=	$this->db->query("SELECT MAX(send_on) FROM emails");
+			$latest_email_schedule	=	(array)$latest_email_schedule->row();
+			$latest_email_schedule	=	$latest_email_schedule['MAX(send_on)'];
+			$schedule_offset		=	60;
+			$schedule_interval		=	5;
+			$email_interval			=	5;
+			$interval				=	6;
 			if(!empty($csv)) {
 				if(count($csv) < 500 || count($csv) > 2) {
-					unset($data['uploaded'][0]);
+					unset($csv[0]);
 					$ctr	=	0;
+					$insertstring	=	'';
 					foreach($csv as $rowctr=>$row) {
 						if($row[3] == "" || $row[4] == "") unset($data['uploaded'][$rowctr]); // removes rows with blank email and filename columns
 						if($row[3] != "" && $row[4] != "") {
-							$multiInsert[]	=	[
+							$ctr++;
+							$interval--;
+							if($interval==0) {
+								$interval=5;
+								$schedule_interval	=	$schedule_interval + 5;
+							}
+							$multiInsert[$ctr]	=	[
 								"full_name"		=>	$row[2],
 								"recipient"		=>	$row[3],
 								"attachment"	=>	$row[4],
+								"send_on"		=>	date('Y-m-d H:i:s', strtotime('+'.($schedule_interval+$schedule_offset).' minutes')),
 								"created_on"	=>	date('Y-m-d H:i:s'),
 							];
-							//~ debug($row);
-							$ctr++;
+							$insertstring	.=	$this->db->insert_string('emails', $multiInsert[$ctr]).'; ';
 						}
 					}
+					$this->db->insert_batch('emails',$multiInsert);
 				}
 			}
 		}

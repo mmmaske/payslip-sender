@@ -1,4 +1,3 @@
-<?php $this->load->helper('form'); ?>
 <div class="box">
 	<form action="<?php echo HTTP_PATH; ?>/upload/payslips" method="POST" enctype="multipart/form-data">
 		<input type='hidden' name='<?php echo $this->security->get_csrf_token_name(); ?>' value='<?php echo $this->security->get_csrf_hash(); ?>' />

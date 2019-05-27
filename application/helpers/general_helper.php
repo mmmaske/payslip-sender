@@ -61,7 +61,7 @@ if(!function_exists('sendEmail')) {
 		$email_config	=	array(
 			'protocol' => 'smtp',
 			'smtp_host' => EMAIL_HOST,
-			'smtp_port' => 25,
+			'smtp_port' => 465,
 			'smtp_user' => EMAIL_SENDER,
 			'smtp_pass' => SENDER_PWORD,
 			'mailtype'  => 'html',

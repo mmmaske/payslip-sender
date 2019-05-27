@@ -6,8 +6,16 @@ class Home extends CI_Controller {
 		$this->output->enable_profiler(FALSE);
 	}
 	public function index() {$data=array();
-		//~ sendEmail('ilzyqeuy@sharklasers.com', 'Test Subject', 'Lorem ipsum dolor sit amet');
+		sendEmail('mmjmaske@yahoo.com.ph', 'Test Subject', 'Lorem ipsum dolor sit amet');
 		$data['viewfile']	=	"home.php";
 		$this->load->view("container.php",$data);
+	}
+	public function crontroller() {
+
+	}
+	public function send() {
+		$emails	=	$this->db->query("SELECT * FROM emails WHERE is_sent<>1");
+		$emails	=	$emails->result_array();
+		debug($emails);
 	}
 } ?>
