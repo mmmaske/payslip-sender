@@ -69,7 +69,7 @@ class Upload extends CI_Controller {
 		$this->load->view('container.php', $data);
 	}
 	function upload_file($filetype) {
-		$config['upload_path'] = WPATH .'assets'.'/'.$filetype;
+		$config['upload_path'] = FCPATH .'assets'.'/'.$filetype;
 		$config['allowed_types'] = '*';
 		$this->load->library('upload');
 		$this->upload->initialize($config);
