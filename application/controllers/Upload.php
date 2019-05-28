@@ -25,7 +25,6 @@ class Upload extends CI_Controller {
 		if(isset($_FILES['reference'])) {
 			$uploaded	=	$this->upload_file('reference');
 			$csv		=	array_map('str_getcsv', file($uploaded['full_path']));
-			$data['uploaded']	=	$csv;
 			$data['filedata']	=	$uploaded;
 			$multiInsert		=	[];
 			$latest_email_schedule	=	$this->db->query("SELECT MAX(send_on) FROM emails");
@@ -35,6 +34,7 @@ class Upload extends CI_Controller {
 			$schedule_interval		=	5;
 			$email_interval			=	5;
 			$interval				=	6;
+			$data['multiInsert']	=	[];
 			if(!empty($csv)) {
 				if(count($csv) < 500 || count($csv) > 2) {
 					unset($csv[0]);
@@ -52,14 +52,16 @@ class Upload extends CI_Controller {
 							$multiInsert[$ctr]	=	[
 								"full_name"		=>	$row[2],
 								"recipient"		=>	$row[3],
-								"attachment"	=>	$row[4],
-								"send_on"		=>	date('Y-m-d H:i:s', strtotime('+'.($schedule_interval+$schedule_offset).' minutes')),
+								"attachment"	=>	$row[4].'.pdf',
+								"send_on"		=>	date('Y-m-d H:i:s', strtotime($latest_email_schedule.' +'.($schedule_interval+$schedule_offset).' minutes')),
 								"created_on"	=>	date('Y-m-d H:i:s'),
+								"source"		=>	$uploaded['file_name'],
 							];
 							$insertstring	.=	$this->db->insert_string('emails', $multiInsert[$ctr]).'; ';
 						}
 					}
-					$this->db->insert_batch('emails',$multiInsert);
+					$data['csv']		=	$multiInsert;
+					$data['uploaded']	=	$this->db->insert_batch('emails',$multiInsert);
 				}
 			}
 		}
