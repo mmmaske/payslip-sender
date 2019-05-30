@@ -6,7 +6,6 @@ class Home extends CI_Controller {
 		$this->output->enable_profiler(FALSE);
 	}
 	public function index() {$data=array();
-		sendEmail('mmjmaske@yahoo.com.ph', 'Test Subject', 'Lorem ipsum dolor sit amet');
 		$data['viewfile']	=	"home.php";
 		$this->load->view("container.php",$data);
 	}
@@ -14,7 +13,7 @@ class Home extends CI_Controller {
 		$this->send();
 	}
 	public function send() {
-		$emails	=	$this->db->query("SELECT e.*, p.old_name, p.new_name, p.is_sent, p.id as payslip_id FROM emails as e JOIN payslips AS p ON p.old_name=e.attachment WHERE p.is_sent=0 AND e.is_sent=0 AND e.send_on <= '2019-05-29'");
+		$emails	=	$this->db->query("SELECT e.*, p.old_name, p.new_name, p.is_sent, p.id as payslip_id FROM emails as e JOIN payslips AS p ON p.old_name=e.attachment WHERE p.is_sent=0 AND e.is_sent=0 AND e.send_on <= '".date('Y-m-d H:i:s')."'");
 		$emails	=	$emails->result_array();
 		$sendctr	=	0;
 		$update_emails		=	[];
