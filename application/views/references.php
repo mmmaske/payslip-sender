@@ -23,7 +23,7 @@
 				<?php if(count($csv)>0): foreach($csv as $row):?>
 					<?php
 						if(file_exists(FCPATH.'assets/payslip/'.$row['attachment'].'')) {
-							if(date('Y-m-d H:i:s', strtotime($row['send_on'])) > date('Y-m-d H:i:s')) $file_status	=	'<span class="badge bg-blue">Pending Schedule</span>';
+							if(date('Y-m-d H:i:s', strtotime($row['send_on'])) > date('Y-m-d H:i:s')) $file_status	=	'<span><a class="badge bg-blue" href="'.SITEURL.'/assets/payslip/'.$row['attachment'].'" target="_new">Pending Schedule</a></span>';
 							else $file_status	=	'<span class="badge bg-red">Sending Failed</span>';
 						}
 						else {
