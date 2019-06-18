@@ -21,22 +21,19 @@
 				</thead>
 				<tbody>
 				<?php if(count($csv)>0): foreach($csv as $row):?>
-				<?php
-					$file_status		=	'<span class="badge bg-orange">Not found</span>';
-					if(file_exists(FCPATH.'assets/payslip/'.$row['attachment'].'')) {
-						if($row['is_sent']==0) {
-							if(date('Y-m-d H:i:s', strtotime($row['send_on'])) < date('Y-m-d H:i:s')) {
-								$file_status	=	'<span class="badge bg-red">Sending Failed</span>';
-							}
-							else {
-								$file_status	=	'<span class="badge bg-blue">Pending Schedule</span>';
-							}
+					<?php
+						if(file_exists(FCPATH.'assets/payslip/'.$row['attachment'].'')) {
+							if(date('Y-m-d H:i:s', strtotime($row['send_on'])) > date('Y-m-d H:i:s')) $file_status	=	'<span class="badge bg-blue">Pending Schedule</span>';
+							else $file_status	=	'<span class="badge bg-red">Sending Failed</span>';
 						}
 						else {
-							$file_status	=	'<span class="badge bg-gray">Sending complete</span>';
+							if(date('Y-m-d H:i:s', strtotime($row['send_on'])) < date('Y-m-d H:i:s')) $file_status	=	'<span class="badge bg-red">Sending Failed - Not Found</span>';
+							else $file_status	=	'<span class="badge bg-orange">Not found</span>';
 						}
-					}
-				?>
+						if($row['is_sent']==1) {
+							$file_status	=	'<span class="badge bg-green">Sending complete</span>';
+						}
+					?>
 					<tr>
 						<td><?php echo $row['full_name']; ?></td>
 						<td><?php echo $row['recipient']; ?></td>

@@ -1,7 +1,6 @@
 <?php
 $page['title']		=	isset($page['title']) ? $page['title'] : 'Systemantech Payslip Utility Tool';
 $page['subtitle']	=	isset($page['subtitle']) ? $page['subtitle'] : 'Powered by Lohica';
-debug($_SESSION);
 ?>
 <!DOCTYPE html>
 <html>

@@ -34,6 +34,7 @@ class Upload extends CI_Controller {
 			$schedule_interval		=	5;
 			$email_interval			=	5;
 			$interval				=	6;
+			if($latest_email_schedule=='') $latest_email_schedule	=	date('Y-m-d H:i:s',strtotime('+'.$schedule_offset.' minutes'));
 			$data['multiInsert']	=	[];
 			if(!empty($csv)) {
 				if(count($csv) < 500 || count($csv) > 2) {
@@ -54,7 +55,10 @@ class Upload extends CI_Controller {
 								"recipient"		=>	$row[3],
 								"attachment"	=>	$row[4].'.pdf',
 								"send_on"		=>	date('Y-m-d H:i:s', strtotime($latest_email_schedule.' +'.($schedule_interval+$schedule_offset).' minutes')),
+								"created_by"	=>	0,
 								"created_on"	=>	date('Y-m-d H:i:s'),
+								"modified_by"	=>	0,
+								"modified_on"	=>	'0000-00-00 00:00:00',
 								"source"		=>	$uploaded['file_name'],
 							];
 							$insertstring	.=	$this->db->insert_string('emails', $multiInsert[$ctr]).'; ';
