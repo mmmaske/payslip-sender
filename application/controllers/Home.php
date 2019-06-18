@@ -4,8 +4,11 @@ class Home extends CI_Controller {
 		parent::__construct();
 		date_default_timezone_set('Asia/Manila');
 		$this->output->enable_profiler(FALSE);
+
 	}
 	public function index() {$data=array();
+		$data['csv']		=	$this->db->get('emails')->result_array();
+		$data['uploaded']	=	count($this->db->get('emails')->result_array());
 		$data['viewfile']	=	"home.php";
 		$this->load->view("container.php",$data);
 	}
@@ -13,7 +16,7 @@ class Home extends CI_Controller {
 		$this->send();
 	}
 	public function send() {
-		$emails	=	$this->db->query("SELECT e.*, p.old_name, p.new_name, p.is_sent, p.id as payslip_id FROM emails as e JOIN payslips AS p ON p.old_name=e.attachment WHERE p.is_sent=0 AND e.is_sent=0 AND e.send_on <= '".date('Y-m-d H:i:s')."'");
+		$emails	=	$this->db->query("SELECT e.* FROM emails as e WHERE e.is_sent=0 AND e.send_on <= '".date('Y-m-d H:i:s')."'");
 		$emails	=	$emails->result_array();
 		$sendctr	=	0;
 		$update_emails		=	[];

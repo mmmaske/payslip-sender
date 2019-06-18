@@ -16,10 +16,10 @@ class Upload extends CI_Controller {
 				"created_on"	=>	date('Y-m-d H:i:s')
 			];
 			$inserted	=	dbInsert('payslips', $insert, 'Add new payslip');
+			if($inserted==true) swalert('Payslip Uploaded!', 'You have uploaded '.$payslip['file_name'].'!', 'success');
 			debug($inserted);
 		}
-		$data['viewfile']	=	'payslips.php';
-		$this->load->view('container.php', $data);
+		redirect(HTTP_PATH);
 	}
 	public function reference() {
 		if(isset($_FILES['reference'])) {
@@ -61,12 +61,13 @@ class Upload extends CI_Controller {
 						}
 					}
 					$data['csv']		=	$multiInsert;
+					$this->db->delete('emails',['1'=>1]);
 					$data['uploaded']	=	$this->db->insert_batch('emails',$multiInsert);
+					swalert('Payslip Uploaded!', 'You have uploaded '.$uploaded['file_name'].'!', 'success');
 				}
 			}
 		}
-		$data['viewfile']	=	'references.php';
-		$this->load->view('container.php', $data);
+		redirect(HTTP_PATH);
 	}
 	function upload_file($filetype) {
 		$config['upload_path'] = FCPATH .'assets'.'/'.$filetype;
