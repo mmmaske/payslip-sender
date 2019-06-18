@@ -15,7 +15,7 @@ class Upload extends CI_Controller {
 				"size"			=>	$payslip['file_size'],
 				"created_on"	=>	date('Y-m-d H:i:s')
 			];
-			$inserted	=	dbInsert('payslips', $insert, 'Add new payslip');
+			$inserted	=	$this->db->insert('payslips', $insert);
 			if($inserted==true) swalert('Payslip Uploaded!', 'You have uploaded '.$payslip['file_name'].'!', 'success');
 			debug($inserted);
 		}
@@ -76,6 +76,7 @@ class Upload extends CI_Controller {
 	function upload_file($filetype) {
 		$config['upload_path'] = FCPATH .'assets'.'/'.$filetype;
 		$config['allowed_types'] = '*';
+		$config['remove_spaces'] = false;
 		$this->load->library('upload');
 		$this->upload->initialize($config);
 		if (!$this->upload->do_upload($filetype)) {
