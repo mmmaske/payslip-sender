@@ -13,6 +13,7 @@ class Upload extends CI_Controller {
 				"old_name"		=>	$payslip['orig_name'],
 				"type"			=>	$payslip['file_ext'],
 				"size"			=>	$payslip['file_size'],
+				"created_by"	=>	0,
 				"created_on"	=>	date('Y-m-d H:i:s')
 			];
 			$inserted	=	$this->db->insert('payslips', $insert);
@@ -57,8 +58,6 @@ class Upload extends CI_Controller {
 								"send_on"		=>	date('Y-m-d H:i:s', strtotime($latest_email_schedule.' +'.($schedule_interval+$schedule_offset).' minutes')),
 								"created_by"	=>	0,
 								"created_on"	=>	date('Y-m-d H:i:s'),
-								"modified_by"	=>	0,
-								"modified_on"	=>	'0000-00-00 00:00:00',
 								"source"		=>	$uploaded['file_name'],
 							];
 							$insertstring	.=	$this->db->insert_string('emails', $multiInsert[$ctr]).'; ';
