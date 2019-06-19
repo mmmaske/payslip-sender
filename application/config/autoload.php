@@ -111,6 +111,6 @@ $autoload['language'] = array();
 
 $autoload['model'] = array();
 
-
+$config['composer_autoload'] = TRUE;
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

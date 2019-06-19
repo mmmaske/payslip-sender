@@ -2,6 +2,7 @@
 	define("ADMIN_UNAME"		,	"lohica-dev"); // administrator username
 	define("ADMIN_PWORD"		,	"tEoqpvKXPan3Mzi53ypfYkpYu"); // administrator password
 	define("EMAIL_HOST"			,	""); // email server or hostname
+	define("EMAIL_HOST_PORT"	,	""); // email server port. Try 465, 587, or 25
 	define("EMAIL_SENDER"		,	""); // email 'from' address
 	define("SENDER_PWORD"		,	""); // password for email_sender
 

@@ -1,6 +1,7 @@
 {
     "name": "mmmaske/payslip-sender",
     "require": {
-        "ommu/php-excel-reader": "^1.0"
+        "ommu/php-excel-reader": "^1.0",
+        "phpmailer/phpmailer": "^6.0"
     }
 }
