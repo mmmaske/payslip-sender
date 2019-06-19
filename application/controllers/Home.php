@@ -12,40 +12,6 @@ class Home extends CI_Controller {
 		$data['viewfile']	=	"home.php";
 		$this->load->view("container.php",$data);
 	}
-	public function test_send() {
-		require_once FCPATH.'vendor/phpmailer/phpmailer/src/PHPMailer.php';
-		require_once FCPATH.'vendor/phpmailer/phpmailer/src/Exception.php';
-		require_once FCPATH.'vendor/phpmailer/phpmailer/src/SMTP.php';
-		$mail = new PHPMailer\PHPMailer\PHPMailer();
-		try {
-			//Server settings
-			$mail->SMTPDebug = 2;                                       // Enable verbose debug output
-			$mail->isSMTP();                                            // Set mailer to use SMTP
-			$mail->Host       = EMAIL_HOST;  // Specify main and backup SMTP servers
-			$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-			$mail->Username   = EMAIL_SENDER;                     // SMTP username
-			$mail->Password   = SENDER_PWORD;                               // SMTP password
-			$mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-			$mail->Port       = EMAIL_HOST_PORT;                                    // TCP port to connect to
-
-			//Recipients
-			$mail->setFrom('smti.developers@gmail.com', 'Mailer');
-			$mail->addAddress('mmjmaske@gmail.com', 'mmm');     // Add a recipient
-			$mail->addAddress('mark.maske@systemantech.com', 'mmm');     // Add a recipient
-			$mail->addAddress('josh.gono@systemantech.com', 'jbg');     // Add a recipient
-
-			// Content
-			$mail->isHTML(true);                                  // Set email format to HTML
-			$mail->Subject = 'Here is the subject';
-			$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-			$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-			$mail->send();
-			echo 'Message has been sent';
-		} catch (Exception $e) {
-			echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-		}
-	}
 	public function crontroller() {
 		$this->send();
 	}

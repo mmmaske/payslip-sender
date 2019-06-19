@@ -33,51 +33,33 @@ if(!function_exists('debug')) {
 if(!function_exists('sendEmail')) {
 	function sendEmail($to, $subject, $msg, $attachment='') {
 		$ci =& get_instance();
-		$ci->load->library('email');
-		// $config['protocol'] = 'sendmail';
-		// $config['protocol'] = 'smtp';
+		require_once FCPATH.'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+		require_once FCPATH.'vendor/phpmailer/phpmailer/src/Exception.php';
+		require_once FCPATH.'vendor/phpmailer/phpmailer/src/SMTP.php';
+		$mail = new PHPMailer\PHPMailer\PHPMailer();
+		try {
+			//Server settings
+			$mail->SMTPDebug	=	2;					// Enable verbose debug output
+			$mail->isSMTP();							// Set mailer to use SMTP
+			$mail->Host			=	EMAIL_HOST;			// Specify main and backup SMTP servers
+			$mail->SMTPAuth		=	true;				// Enable SMTP authentication
+			$mail->Username		=	EMAIL_SENDER;		// SMTP username
+			$mail->Password		=	SENDER_PWORD;		// SMTP password
+			$mail->SMTPSecure	=	'tls';				// Enable TLS encryption, `ssl` also accepted
+			$mail->Port			=	EMAIL_HOST_PORT;	// TCP port to connect to
+			$mail->setFrom(EMAIL_SENDER, 'Auto-Mailer');
 
-		// $config['mailpath'] = '/usr/sbin/sendmail';
+			$mail->addAddress($to);						// Add a recipient
 
-		// $config['charset'] = 'iso-8859-1';
-		$config['charset'] = 'utf-8';
-
-		// $config['content-type'] = 'text';
-		$config['content-type'] = 'html';
-		// $config['content-type'] = 'text/html';
-
-		$config['wordwrap'] = TRUE;
-
-		$debug_string	=	"";
-		if(ENVIRONMENT == "development") {
-			$debug	=	debug_backtrace();
-			$file	=	$debug[0]['file'];
-			$line	=	$debug[0]['line'];
-			$debug_string	.= "<br/><br/><pre>";
-			$debug_string	.=	"Send email in ".$file." at ".$line;
-			$debug_string	.= "</pre>";
+			// Content
+			$mail->isHTML(true);                                  // Set email format to HTML
+			$mail->Subject = 'Payslip';
+			$mail->Body    = 'Your payslip is attached to this email.';
+			if(file_exists($attachment)) $mail->addAttachment($attachment);
+			$mail->send();
+		} catch (Exception $e) {
+			debug("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
 		}
-
-		$email_config	=	array(
-			'protocol' => 'smtp',
-			'smtp_host' => EMAIL_HOST,
-			'smtp_port' => 465,
-			'smtp_user' => EMAIL_SENDER,
-			'smtp_pass' => SENDER_PWORD,
-			'mailtype'  => 'html',
-			'charset'   => 'iso-8859-1'
-		);
-
-		$ci->email->initialize($email_config);
-		$ci->email->from(EMAIL_SENDER);
-		$ci->email->to($to);
-		$ci->email->subject($subject);
-		$ci->email->message("<html><body>".$msg.$debug_string."</body></html>");
-
-		if(file_exists(WPATH."uploads/".$attachment)) {
-			$this->email->attach(WPATH."uploads/".$attachment);
-		}
-		return $ci->email->send();
 	}
 }
 if(!function_exists('checkLogin')) {
