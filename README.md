@@ -31,7 +31,7 @@ This section defines the format of the reference file. The columns are as follow
 2. Copy the program from the repository `git clone https://github.com/mmmaske/payslip-sender`
 3. Copy the blank configuration file `cp blank-global-config.php global-config.php`
 4. Edit the working configuration file `nano global-config.php`
-5. Create the payslip upload folder `mkdir /path/to/your/public/webserver/payslip-sender/assets/payslips`
-6. Create the reference upload folder `mkdir /path/to/your/public/webserver/payslip-sender/assets/reference`
+5. Edit the .htaccess file to reflect the directory structure of your webserver `nano .htaccess`
+6. Create the MySQL tables with `source payslipsender.sql` in your MySQL console
 7. Grant permissions to the payslip upload folder `chmod 777 /path/to/your/public/webserver/payslip-sender/assets/payslips`
 8. Grant permissions to the reference upload folder `chmod 777 /path/to/your/public/webserver/payslip-sender/assets/reference`
