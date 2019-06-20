@@ -23,9 +23,9 @@
 				<?php if(count($csv)>0): foreach($csv as $row):?>
 					<?php
 						if(file_exists(FCPATH.'assets/payslip/'.$row['attachment'].'')) {
-							if(date('Y-m-d H:i:s', strtotime($row['send_on'])) > date('Y-m-d H:i:s', strtotime('+5 minutes'))) $file_status	=	'<span><a class="badge bg-blue" href="'.SITEURL.'/assets/payslip/'.$row['attachment'].'" target="_new">Pending Schedule</a></span>';
+							if(date('Y-m-d H:i:s', strtotime($row['send_on'])) > date('Y-m-d H:i:s', strtotime('+5 minutes'))) $file_status	=	'<span><a class="badge bg-blue" href="'.SITEURL.'/assets/payslip/'.$row['attachment'].'/?redirect=1" target="_new">Pending Schedule</a></span>';
 							elseif(date('Y-m-d H:i:s', strtotime($row['send_on'])) < date('Y-m-d H:i:s', strtotime('+5 minutes')) && date('Y-m-d H:i:s', strtotime($row['send_on'])) > date('Y-m-d H:i:s', strtotime('-5 minutes'))) $file_status	=	'<span class="badge bg-gray">Sending...</span>';
-							else $file_status	=	'<a class="badge bg-red" href="'.HTTP_PATH.'Home/send/'.$row['id'].'">Sending Failed</a>';
+							else $file_status	=	'<a class="badge bg-red" href="'.HTTP_PATH.'Home/send/'.$row['id'].'/?redirect=1">Sending Failed</a>';
 						}
 						else {
 							if(date('Y-m-d H:i:s', strtotime($row['send_on'])) < date('Y-m-d H:i:s')) $file_status	=	'<span class="badge bg-red">Sending Failed - Not Found</span>';

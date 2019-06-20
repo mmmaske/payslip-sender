@@ -100,7 +100,7 @@ $page['subtitle']	=	isset($page['subtitle']) ? $page['subtitle'] : 'Powered by L
 			<small><?php echo $page['subtitle']; ?></small>
 			</h1>
 		</section>
-		<section class="content">
+		<section class="content row">
 			<?php include($viewfile); ?>
 		</section>
 	</div>

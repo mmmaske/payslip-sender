@@ -35,8 +35,8 @@ class Home extends CI_Controller {
 				}
 				$file	=	FCPATH.'assets/payslip/'.$email['attachment'];
 				if(file_exists($file)) {
-					debug($email);
-					//~ sendEmail($email['recipient'], 'Payslip', '<p>Hello '.$email['full_name'].'!</p><p>See attached.</p>', $file);
+					//~ debug($email);
+					sendEmail($email['recipient'], 'Payslip', '<p>Hello '.$email['full_name'].'!</p><p>See attached.</p>', $file);
 					$sendctr++;
 					$update_emails[]	=	[
 						'id' => $email['id'],
@@ -47,6 +47,10 @@ class Home extends CI_Controller {
 				}
 			}
 			if(!empty($update_emails)) $this->db->update_batch('emails', $update_emails, 'id');
+		}
+		if(isset($_GET['redirect'])) {
+			swalert('Emails sent', 'We have sent '.$sendctr.' emails.', 'info');
+			redirect(HTTP_PATH);
 		}
 		echo "<h1>Emails sent: ".$sendctr."</h1>";
 	}
