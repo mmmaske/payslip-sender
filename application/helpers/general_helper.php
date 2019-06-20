@@ -53,8 +53,8 @@ if(!function_exists('sendEmail')) {
 
 			// Content
 			$mail->isHTML(true);                                  // Set email format to HTML
-			$mail->Subject = 'Payslip';
-			$mail->Body    = 'Your payslip is attached to this email.';
+			$mail->Subject = $subject;
+			$mail->Body    = $msg;
 			if(file_exists($attachment)) $mail->addAttachment($attachment);
 			$mail->send();
 		} catch (Exception $e) {

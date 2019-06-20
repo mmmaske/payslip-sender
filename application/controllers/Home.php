@@ -40,7 +40,7 @@ class Home extends CI_Controller {
 						'modified_on' => date('Y-m-d H:i:s'),
 						'is_sent' => 1
 					];
-					rename($file, FCPATH.'assets/payslip/archive/'.date('Y-m-d').'/'.$email['attachment']);
+					rename('"'.$file.'"', '"'.FCPATH.'assets/payslip/archive/'.date('Y-m-d').'/'.$email['attachment'].'"');
 				}
 			}
 			if(!empty($update_emails)) $this->db->update_batch('emails', $update_emails, 'id');
