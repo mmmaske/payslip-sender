@@ -16,9 +16,12 @@ class Home extends CI_Controller {
 		$this->send();
 	}
 	public function send($id='') {
-		//~ $send_to['send_on<=']	=	date('Y-m-d H:i:s');
+		$send_to['is_sent']					=	1;
+		$send_to['send_on>']				=	date('Y-m-d H:i:s', strtotime('-5 minutes'));
+		$send_to['send_on<']				=	date('Y-m-d H:i:s', strtotime('+5 minutes'));
 		if(is_numeric($id)) $send_to['id']	=	$id;
 		$emails				=	$this->db->get_where("emails", $send_to)->result_array();
+		debug($this->db->last_query());
 		$sendctr			=	0;
 		$update_emails		=	[];
 		$update_payslips	=	[];
@@ -37,6 +40,7 @@ class Home extends CI_Controller {
 						'modified_on' => date('Y-m-d H:i:s'),
 						'is_sent' => 1
 					];
+					rename($file, FCPATH.'assets/payslip/archive/'.date('Y-m-d').'/'.$email['attachment']);
 				}
 			}
 			if(!empty($update_emails)) $this->db->update_batch('emails', $update_emails, 'id');

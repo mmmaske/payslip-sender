@@ -31,6 +31,7 @@ class Upload extends CI_Controller {
 			$latest_email_schedule	=	$this->db->query("SELECT MAX(send_on) FROM emails");
 			$latest_email_schedule	=	(array)$latest_email_schedule->row();
 			$latest_email_schedule	=	$latest_email_schedule['MAX(send_on)'];
+			if($latest_email_schedule < date('Y-m-d H:i:s')) $latest_email_schedule	=	date('Y-m-d H:i:s');
 			$schedule_offset		=	60;
 			$schedule_interval		=	5;
 			$email_interval			=	5;
