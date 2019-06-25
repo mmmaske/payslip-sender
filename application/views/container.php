@@ -35,27 +35,14 @@ $page['subtitle']	=	isset($page['subtitle']) ? $page['subtitle'] : 'Powered by L
 					<li class="dropdown user user-menu">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="https://avatars.dicebear.com/v2/male/mmmaske.svg" class="user-image" alt="User Image">
-							<span class="hidden-xs">Alexander Pierce</span>
+							<span class="hidden-xs">Payroll Master</span>
 						</a>
 						<ul class="dropdown-menu">
 							<li class="user-header">
 								<img src="https://avatars.dicebear.com/v2/male/mmmaske.svg" class="img-circle" alt="User Image">
 								<p>
-									Payroll Master - SMTI
+									Payroll Master
 								</p>
-							</li>
-							<li class="user-body">
-								<div class="row">
-									<div class="col-xs-4 text-center">
-										<a href="#">Followers</a>
-									</div>
-									<div class="col-xs-4 text-center">
-										<a href="#">Sales</a>
-									</div>
-									<div class="col-xs-4 text-center">
-										<a href="#">Friends</a>
-									</div>
-								</div>
 							</li>
 							<li class="user-footer">
 								<div class="pull-left">
@@ -74,7 +61,7 @@ $page['subtitle']	=	isset($page['subtitle']) ? $page['subtitle'] : 'Powered by L
 			</div>
 		</nav>
 	</header>
-	<aside class="main-sidebar">
+	<!--aside class="main-sidebar">
 		<section class="sidebar">
 			<ul class="sidebar-menu" data-widget="tree">
 				<li class="header">MAIN NAVIGATION</li>
@@ -92,7 +79,7 @@ $page['subtitle']	=	isset($page['subtitle']) ? $page['subtitle'] : 'Powered by L
 				</li>
 			</ul>
 		</section>
-	</aside>
+	</aside-->
 	<div class="content-wrapper">
 		<section class="content-header">
 			<h1>

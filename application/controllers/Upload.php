@@ -68,6 +68,8 @@ class Upload extends CI_Controller {
 					}
 					$data['csv']		=	$multiInsert;
 					$this->db->delete('emails',['1'=>1]);
+					$this->db->query("SET NAMES 'utf8'");
+					$this->db->query("SET CHARACTER SET 'utf8'");
 					$data['uploaded']	=	$this->db->insert_batch('emails',$multiInsert);
 					swalert('Payslip Uploaded!', 'You have uploaded '.$uploaded['file_name'].'!', 'success');
 				}
