@@ -47,7 +47,7 @@ if(!function_exists('sendEmail')) {
 			$mail->Password		=	SENDER_PWORD;		// SMTP password
 			$mail->SMTPSecure	=	'tls';				// Enable TLS encryption, `ssl` also accepted
 			$mail->Port			=	EMAIL_HOST_PORT;	// TCP port to connect to
-			$mail->setFrom(EMAIL_SENDER, 'Auto-Mailer');
+			$mail->setFrom(EMAIL_SENDER, EMAIL_SENDER_NAME);
 
 			$mail->addAddress($to);						// Add a recipient
 
