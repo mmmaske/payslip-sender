@@ -1,7 +1,7 @@
 <div class="box">
 	<?php if(isset($csv)): ?>
 		<div class="box-header with-border">
-			<h3 class="box-title">References uploaded: <?php echo $uploaded; ?></h3>
+			<h3 class="box-title"><?php echo isset($csv[0]['subject']) ? 'Email subject: '.$csv[0]['subject'] : ''; ?></h3>
 			<div class="box-tools pull-right">
 			<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
 					title="Collapse">
@@ -11,6 +11,7 @@
 			</div>
 		</div>
 		<div class="box-body">
+
 			<table class="table table-hover">
 				<thead>
 					<th>Name</th>
@@ -47,7 +48,7 @@
 			</table>
 		</div>
 		<div class="box-footer">
-			<a href='<?php echo SITEURL; ?>upload/payslips' class='btn btn-primary'>Upload Payslips</a>
+			<p>References uploaded: <?php echo $uploaded; ?></p>
 		</div>
 	<?php endif; ?>
 </div>

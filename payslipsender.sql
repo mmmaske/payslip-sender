@@ -26,7 +26,7 @@ CREATE TABLE `db_activity` (
   `id` int(111) NOT NULL AUTO_INCREMENT,
   `ip` varchar(100) NOT NULL,
   `session_id` varchar(256) NOT NULL,
-  `timestamp` datetime DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `query` text NOT NULL,
   `action` varchar(1000) DEFAULT NULL,
   `page` varchar(256) DEFAULT NULL,
@@ -56,14 +56,15 @@ DROP TABLE IF EXISTS `emails`;
 CREATE TABLE `emails` (
   `id` int(16) unsigned NOT NULL AUTO_INCREMENT,
   `full_name` varchar(256) DEFAULT NULL,
+  `subject` varchar(256) DEFAULT NULL,
   `recipient` varchar(256) DEFAULT NULL,
   `attachment` varchar(256) DEFAULT NULL,
   `is_sent` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `send_on` datetime NOT NULL,
+  `send_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `not_sent_error` text,
-  `created_on` datetime DEFAULT NULL,
-  `created_by` int(16) unsigned DEFAULT NULL,
-  `modified_on` datetime DEFAULT NULL,
+  `created_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_by` int(16) unsigned NOT NULL,
+  `modified_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `modified_by` int(16) unsigned DEFAULT NULL,
   `source` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
@@ -94,9 +95,9 @@ CREATE TABLE `payslips` (
   `size` double(16,2) DEFAULT NULL COMMENT 'in megabytes',
   `is_sent` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `not_sent_error` text,
-  `created_on` datetime DEFAULT NULL,
-  `created_by` int(16) unsigned DEFAULT NULL,
-  `modified_on` datetime DEFAULT NULL,
+  `created_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_by` int(16) unsigned NOT NULL,
+  `modified_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `modified_by` int(16) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -120,4 +121,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-18 14:23:15
+-- Dump completed on 2019-06-25 14:00:32

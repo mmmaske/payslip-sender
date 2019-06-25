@@ -24,6 +24,7 @@ class Upload extends CI_Controller {
 	}
 	public function reference() {
 		if(isset($_FILES['reference'])) {
+			$post		=	$this->input->post();
 			$uploaded	=	$this->upload_file('reference');
 			$csv		=	array_map('str_getcsv', file($uploaded['full_path']));
 			$data['filedata']	=	$uploaded;
@@ -55,6 +56,7 @@ class Upload extends CI_Controller {
 							$multiInsert[$ctr]	=	[
 								"full_name"		=>	$row[2],
 								"recipient"		=>	$row[3],
+								"subject"		=>	$post['subject'],
 								"attachment"	=>	$row[4].'.pdf',
 								"send_on"		=>	date('Y-m-d H:i:s', strtotime($latest_email_schedule.' +'.($schedule_interval+$schedule_offset).' minutes')),
 								"created_by"	=>	0,

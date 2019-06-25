@@ -36,7 +36,8 @@ class Home extends CI_Controller {
 				$file	=	FCPATH.'assets/payslip/'.$email['attachment'];
 				if(file_exists($file)) {
 					//~ debug($email);
-					sendEmail($email['recipient'], 'Payslip', '<p>Hello '.$email['full_name'].'!</p><p>See attached.</p>', $file);
+					$message	=	EMAIL_BODY;
+					sendEmail($email['recipient'], $email['subject'], $message, $file);
 					$sendctr++;
 					$update_emails[]	=	[
 						'id' => $email['id'],
