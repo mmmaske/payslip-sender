@@ -4,6 +4,8 @@
 	define("EMAIL_HOST"			,	""); // email server or hostname
 	define("EMAIL_HOST_PORT"	,	""); // email server port. Try 465, 587, or 25
 	define("EMAIL_SENDER"		,	""); // email 'from' address
+	define("EMAIL_SENDER_NAME"	,	""); // email 'from' name
+	define("EMAIL_BODY"			,	""); // email message content
 	define("SENDER_PWORD"		,	""); // password for email_sender
 
 	####################################
