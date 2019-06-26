@@ -8,17 +8,26 @@ class Upload extends CI_Controller {
 		if(isset($_FILES['payslip'])) {
 			$payslip	=	$this->upload_file('payslip');
 			$data['uploaded']	=	$payslip;
-			$insert	=	[
-				"new_name"		=>	$payslip['file_name'],
-				"old_name"		=>	$payslip['orig_name'],
-				"type"			=>	$payslip['file_ext'],
-				"size"			=>	$payslip['file_size'],
-				"created_by"	=>	0,
-				"created_on"	=>	date('Y-m-d H:i:s')
-			];
-			$inserted	=	$this->db->insert('payslips', $insert);
-			if($inserted==true) swalert('Payslip Uploaded!', 'You have uploaded '.$payslip['file_name'].'!', 'success');
-			debug($inserted);
+			if($payslip['file_ext']=='pdf') {
+				$insert	=	[
+					"new_name"		=>	$payslip['file_name'],
+					"old_name"		=>	$payslip['orig_name'],
+					"type"			=>	$payslip['file_ext'],
+					"size"			=>	$payslip['file_size'],
+					"created_by"	=>	0,
+					"created_on"	=>	date('Y-m-d H:i:s')
+				];
+				$inserted	=	$this->db->insert('payslips', $insert);
+				if($inserted==true) swalert('Payslip Uploaded!', 'You have uploaded '.$payslip['file_name'].'!', 'success');
+			}
+			elseif($payslip['file_ext']=='.zip') {
+				$zip	=	new ZipArchive;
+				$files	=	$zip->open($payslip['full_path']);
+				if($files==true) {
+					$inserted	=	$zip->extractTo(FCPATH .'assets/payslip');
+					if($inserted==true) swalert('Payslips Uploaded!', 'You have uploaded and extracted '.$payslip['file_name'].'!', 'success');
+				}
+			}
 		}
 		redirect(HTTP_PATH);
 	}

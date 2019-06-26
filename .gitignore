@@ -3,4 +3,5 @@ global-config\.php
 /vendor/
 
 /assets/payslip/*.pdf
+/assets/payslip/*.zip
 /assets/reference/*.csv
